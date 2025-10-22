@@ -80,3 +80,7 @@ app.delete("/api/mahasiswa/:id", (req, res) => {
     res.json({ message: "User deleted succesfully" });
   });
 });
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
