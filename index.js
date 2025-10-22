@@ -36,3 +36,20 @@ app.get("/api/mahasiswa", (req, res) => {
     res.json(results);
   });
 });
+
+app.post("/api/mahasiswa", (req, res) => {
+  const { nama, alamat, agama } = req.body;
+
+  if (!nama || !alamat || !agama) {
+    return res.status(400).send("Nama, Alamat, Agama are required");
+  }
+
+  const sql = "INSERT INTO biodata (nama, alamat, agama) VALUES (?, ?, ?)";
+  db.query(sql, [nama, alamat, agama], (err, result) => {
+    if (err) {
+      console.error("Error executing query:" + err.stack);
+      return res.status(500).send("Error adding mahasiswa");
+    }
+    res.status(201).send(`Mahasiswa added with ID: ${result.insertId}`);
+  });
+});
